@@ -5,6 +5,8 @@ set -e
 : ${WEIGHT:=1.0}
 : ${JOURNAL:=/var/lib/ceph/osd/${CLUSTER}-${OSD_ID}/journal}
 
+echo "path to journal: $JOURNAL"
+
 # Make sure the osd id is set
 if [ ! -n "$OSD_ID" ]; then
    echo "OSD_ID must be set; call 'ceph osd create' to allocate the next available osd id"
@@ -35,7 +37,7 @@ if [ ! -e /var/lib/ceph/osd/${CLUSTER}-${OSD_ID}/keyring ]; then
 fi
 
 if [ $1 == 'ceph-osd' ]; then
-   exec ceph-osd -d -i ${OSD_ID} -k /var/lib/ceph/osd/${CLUSTER}-${OSD_ID}/keyring
+   exec ceph-osd -d -i ${OSD_ID} -k /var/lib/ceph/osd/${CLUSTER}-${OSD_ID}/keyring --osd-journal ${JOURNAL}
 else
    exec $@
 fi
