@@ -18,3 +18,7 @@ RUN apt-get upgrade -y
 
 # Install ceph
 RUN apt-get install -y ceph
+
+# cleanup
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
