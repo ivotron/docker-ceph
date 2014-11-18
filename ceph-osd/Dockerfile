@@ -7,7 +7,7 @@
 #
 # VERSION 0.0.2
 
-FROM scottlaird/ceph-base
+FROM ivotron/ceph-base
 MAINTAINER Seán C McCord "ulexus@gmail.com"
 
 # Expose the ceph OSD port (6800+, by default)
