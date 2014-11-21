@@ -1,13 +1,11 @@
-# DOCKER-VERSION 1.0.0
+# DOCKER-VERSION 1.3.1
 # 
 # Ceph OSD
 #
 #  USAGE NOTES:
 #    * OSD_ID (numeric identifier for this OSD; obtain from `ceph osd create`)
-#
-# VERSION 0.0.2
 
-FROM ivotron/ceph-base
+FROM ivotron/ceph-base:0.87.1
 MAINTAINER Seán C McCord "ulexus@gmail.com"
 
 # Expose the ceph OSD port (6800+, by default)

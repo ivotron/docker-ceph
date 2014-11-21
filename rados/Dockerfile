@@ -1,10 +1,8 @@
-# DOCKER-VERSION 1.1.0
+# DOCKER-VERSION 1.3.1
 # 
 # rados
-#
-# VERSION 0.0.2
 
-FROM ulexus/ceph-base
+FROM ivotron/ceph-base:0.87.1
 MAINTAINER Seán C McCord "ulexus@gmail.com"
 
 # Execute monitor as the entrypoint

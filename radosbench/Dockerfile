@@ -1,6 +1,6 @@
 # radosbench
 
-FROM ivotron/ceph-base
+FROM ivotron/ceph-base:0.87.1
 MAINTAINER Ivo Jimenez "ivo.jimenez@gmail.com"
 
 # Execute rados entrypoint

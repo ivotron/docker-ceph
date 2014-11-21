@@ -1,9 +1,6 @@
-# DOCKER-VERSION 1.2.0
+# DOCKER-VERSION 1.3.1
 # 
 # Ceph base image
-#
-# VERSION 1.0.0
-
 
 FROM stackbrew/ubuntu:trusty
 MAINTAINER Seán C McCord "ulexus@gmail.com"
