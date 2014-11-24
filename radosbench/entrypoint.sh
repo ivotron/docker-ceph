@@ -1,11 +1,6 @@
 #!/bin/bash
 set -e
 
-if [ ! -n "$PGS" ]; then
-  echo "ERROR: PGS must be defined as the number of placement groups"
-  exit 1
-fi
-
 if [ ! -n "$N" ]; then
   echo "ERROR: N must be defined as the number of replicas"
   exit 1
@@ -18,6 +13,11 @@ fi
 
 if [ ! -n "$REPS" ]; then
   echo "ERROR: REPS must be defined as the number of times to execute for"
+  exit 1
+fi
+
+if [ ! -n "$NUM_OSD" ]; then
+  echo "ERROR: NUM_OSD must be defined as the number of OSDs in the cluster"
   exit 1
 fi
 
@@ -45,8 +45,27 @@ ceph_health()
   echo ""
 }
 
-BASE_PATH="/data/${YEAR}_${MONTH}_${DAY}_${TIME}"
+# set PGS to the recommended values
+if [ "$NUM_OSD" -le 2 ] ; then
+  PGS=32
+elif [ "$NUM_OSD" -le 3 ] ; then
+  PGS=64
+elif [ "$NUM_OSD" -le 5 ] ; then
+  PGS=128
+elif [ "$NUM_OSD" -le 10 ] ; then
+  PGS=512
+else
+  PGS=4096
+fi
+
+BASE_PATH="/data/${YEAR}_${MONTH}_${DAY}_${TIME}/${NUM_OSD}"
 for ((n=1; n<=N; n++)); do
+
+  # check if we have enough OSDs for replication
+  if [ "$NUM_OSD" -lt "$n" ] ; then
+    continue
+  fi
+
 for size in $SIZE ; do
 for ((rep=1; rep<=REPS; rep++)); do
   RESULTS_PATH="${BASE_PATH}/${n}/${size}/"
